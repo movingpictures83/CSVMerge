@@ -1,0 +1,3 @@
+plugins/CSVMerge/example/corrS.one.csv
+plugins/CSVMerge/example/corrS.two.csv
+plugins/CSVMerge/example/corrS.three.csv

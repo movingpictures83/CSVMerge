@@ -1,0 +1,2 @@
+Prefix plugins/CSVMerge/example/
+Plugin CSVMerge inputfile files.txt outputfile corrS.merged.csv
