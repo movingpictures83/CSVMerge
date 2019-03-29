@@ -28,8 +28,8 @@ class CSVMergePlugin:
       self.n = len(self.bacteria)
       self.ADJ = []#numpy.zeros([self.m, self.n])
       i = 0
-      print "M: ", self.m
-      print "N: ", self.n
+      #print "M: ", self.m
+      #print "N: ", self.n
       for i in range(self.m):
             self.ADJ.append([])
             contents = lines[i].split(',')
@@ -43,7 +43,7 @@ class CSVMergePlugin:
 
  
       for line in filestuff:
-         print "READING FILE ", line.strip()
+         #print "READING FILE ", line.strip()
          newfile = open(line.strip(), 'r')
          firstline = newfile.readline().strip()
          bac = firstline.split(',')

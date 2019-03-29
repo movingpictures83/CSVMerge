@@ -2,7 +2,7 @@
 # Language: Python
 # Input: TXT (contains a list of CSV files)
 # Output: CSV (merged CSV files)
-# Tested with: PluMA 1.0, Python 2.7
+# Tested with: PluMA 1.0, Python 3.6
 
 CSVMerge is a PluMA plugin that expects as input a .txt file containing
 a list of CSV files to merge, one per line.  It will then merge those files
