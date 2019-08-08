@@ -28,8 +28,6 @@ class CSVMergePlugin:
       self.n = len(self.bacteria)
       self.ADJ = []#numpy.zeros([self.m, self.n])
       i = 0
-      #print "M: ", self.m
-      #print "N: ", self.n
       for i in range(self.m):
             self.ADJ.append([])
             contents = lines[i].split(',')
@@ -55,7 +53,15 @@ class CSVMergePlugin:
          for line2 in lines:
             contents = line2.split(',')
             bac2 = contents[0]
-            x = self.samples.index(bac2)
+            if (bac2 in self.samples):
+               x = self.samples.index(bac2)
+            else:
+               self.ADJ.append([])
+               for i in range(0, self.n):
+                  self.ADJ[len(self.ADJ)-1].append(0)
+               x = len(self.ADJ)-1
+               self.m += 1
+               self.samples.append(bac2)
             for j in range(1, len(contents)):
                y = self.bacteria.index(bac[j-1])
                self.ADJ[x][y] = float(contents[j])
