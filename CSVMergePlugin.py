@@ -34,7 +34,7 @@ class CSVMergePlugin:
             self.samples.append(contents[0])
             for j in range(self.n):
                #print contents[j+1]
-               value = float(contents[j+1].strip())
+               value = contents[j+1].strip()#float(contents[j+1].strip())
                #print self.ADJ[i][j]
                self.ADJ[i].append(value)#[j] = value
             i += 1
@@ -63,20 +63,31 @@ class CSVMergePlugin:
                self.m += 1
                self.samples.append(bac2)
             for j in range(1, len(contents)):
-               y = self.bacteria.index(bac[j-1])
-               self.ADJ[x][y] = float(contents[j])
-
+               if (bac[j-1] in self.bacteria):
+                  y = self.bacteria.index(bac[j-1])
+                  self.ADJ[x][y] = contents[j].strip()
+               else:
+                  self.bacteria.append(bac[j-1])
+                  for row in range(len(self.ADJ)):
+                     self.ADJ[row].append(0.0)
+                  self.ADJ[x][len(self.ADJ[x])-1] = contents[j].strip()
 
   
    def output(self, filename):
       filestuff2 = open(filename, 'w')
-      filestuff2.write(self.firstline+"\n")
-      
-      for i in range(self.m):
+      #filestuff2.write(self.firstline+"\n")
+      filestuff2.write("\"\",")
+      for i in range(len(self.bacteria)):
+         filestuff2.write(self.bacteria[i].strip())
+         if (i != len(self.bacteria)-1):
+            filestuff2.write(',')
+         else:
+            filestuff2.write('\n')     
+      for i in range(len(self.samples)):
          filestuff2.write(self.samples[i]+',')
-         for j in range(self.n):
-            filestuff2.write(str(self.ADJ[i][j]))
-            if (j < self.n-1):
+         for j in range(len(self.ADJ[i])):
+            filestuff2.write(self.ADJ[i][j])
+            if (j < len(self.ADJ[i])-1):
                filestuff2.write(",")
             else:
                filestuff2.write("\n")
