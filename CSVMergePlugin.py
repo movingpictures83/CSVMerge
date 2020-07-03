@@ -1,6 +1,7 @@
 import sys
 import numpy
 import random
+import PyPluMA
 
 # Scaling is done to make median=1
 class CSVMergePlugin:
@@ -11,6 +12,8 @@ class CSVMergePlugin:
       filestuff = open(self.myfile, 'r')
 
       firstline = filestuff.readline().strip()
+      if (len(PyPluMA.prefix()) != 0):
+         firstline = PyPluMA.prefix() + "/" + firstline
       firstfile = open(firstline, 'r')
 
       # Use first file to get indices
@@ -41,8 +44,10 @@ class CSVMergePlugin:
 
  
       for line in filestuff:
-         #print "READING FILE ", line.strip()
-         newfile = open(line.strip(), 'r')
+         myline = line.strip()
+         if (len(PyPluMA.prefix()) != 0):
+            myline = PyPluMA.prefix() + "/" + myline
+         newfile = open(myline, 'r')
          firstline = newfile.readline().strip()
          bac = firstline.split(',')
          if (bac.count('\"\"') != 0):
@@ -64,10 +69,24 @@ class CSVMergePlugin:
                self.samples.append(bac2)
             for j in range(1, len(contents)):
                if (bac[j-1] in self.bacteria):
+                  #print("FOUND "+bac[j-1]+", NOT APPENDING")
+                  #xxx = input()
                   y = self.bacteria.index(bac[j-1])
+                  #print(x)
+                  #print(len(self.ADJ))
+                  #print(y)
+                  #print("ROW LENGTH "+str(x))
+                  #print(len(self.ADJ[x]))
+                  #print(j)
+                  #print(len(contents))
+                  #print(len(self.bacteria))
+                  #print(self.n)
                   self.ADJ[x][y] = contents[j].strip()
                else:
                   self.bacteria.append(bac[j-1])
+                  #print("APPENDING: "+str(len(self.bacteria)))
+                  #xxx = input()
+                  self.n += 1
                   for row in range(len(self.ADJ)):
                      self.ADJ[row].append(0.0)
                   self.ADJ[x][len(self.ADJ[x])-1] = contents[j].strip()
@@ -82,11 +101,13 @@ class CSVMergePlugin:
          if (i != len(self.bacteria)-1):
             filestuff2.write(',')
          else:
-            filestuff2.write('\n')     
+            filestuff2.write('\n') 
       for i in range(len(self.samples)):
          filestuff2.write(self.samples[i]+',')
          for j in range(len(self.ADJ[i])):
-            filestuff2.write(self.ADJ[i][j])
+            #if (j != 0 and (float(self.ADJ[i][j]) != 0) and (float(self.ADJ[i][j]) <= 1e-4)):
+            #   print(float(self.ADJ[i][j]))
+            filestuff2.write(str(self.ADJ[i][j]))
             if (j < len(self.ADJ[i])-1):
                filestuff2.write(",")
             else:
