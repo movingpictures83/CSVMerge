@@ -87,6 +87,7 @@ class CSVMergePlugin:
                   #print("APPENDING: "+str(len(self.bacteria)))
                   #xxx = input()
                   self.n += 1
+                  #print(self.n)
                   for row in range(len(self.ADJ)):
                      self.ADJ[row].append(0.0)
                   self.ADJ[x][len(self.ADJ[x])-1] = contents[j].strip()
@@ -112,6 +113,5 @@ class CSVMergePlugin:
                filestuff2.write(",")
             else:
                filestuff2.write("\n")
-
 
 
