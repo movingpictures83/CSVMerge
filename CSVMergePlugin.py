@@ -107,7 +107,6 @@ class CSVMergePlugin:
          filestuff2.write(self.samples[i]+',')
          for j in range(len(self.ADJ[i])):
             #if (j != 0 and (float(self.ADJ[i][j]) != 0) and (float(self.ADJ[i][j]) <= 1e-4)):
-            #   print(float(self.ADJ[i][j]))
             filestuff2.write(str(self.ADJ[i][j]))
             if (j < len(self.ADJ[i])-1):
                filestuff2.write(",")
