@@ -37,11 +37,13 @@ class CSVMergePlugin:
             self.samples.append(contents[0])
             for j in range(self.n):
                #print contents[j+1]
+               #print(contents)
+               #print(j)
+               #print(len(contents))
                value = contents[j+1].strip()#float(contents[j+1].strip())
                #print self.ADJ[i][j]
                self.ADJ[i].append(value)#[j] = value
             i += 1
-
  
       for line in filestuff:
          myline = line.strip()
@@ -84,12 +86,13 @@ class CSVMergePlugin:
                   self.ADJ[x][y] = contents[j].strip()
                else:
                   self.bacteria.append(bac[j-1])
-                  #print("APPENDING: "+str(len(self.bacteria)))
+                  #print("APPENDING: "+bac[j-1])
                   #xxx = input()
                   self.n += 1
                   #print(self.n)
                   for row in range(len(self.ADJ)):
                      self.ADJ[row].append(0.0)
+                  #print(contents[j].strip())
                   self.ADJ[x][len(self.ADJ[x])-1] = contents[j].strip()
 
   
